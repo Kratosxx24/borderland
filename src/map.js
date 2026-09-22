@@ -55,6 +55,7 @@ export class WorldMap {
     this.frame = null;
     this.labelMemory = new Map();
     this.homeBBox = null;
+    this.homeFit = [];
     this.home = null;
     this.moved = false;
     this.onViewChange = null;
@@ -71,7 +72,7 @@ export class WorldMap {
 
     this.ro = new ResizeObserver(() => {
       if (!this.homeBBox) return this.applyView();
-      this.home = this.computeTarget(this.homeBBox);
+      this.home = this.computeTarget(this.homeBBox, ...this.homeFit);
       if (this.moved) this.reaspect();
       else this.setView(this.home.slice());
     });
@@ -140,6 +141,7 @@ export class WorldMap {
 
   focus(bbox, { padding = 0.5, minSpan = 26, instant = false } = {}) {
     this.homeBBox = bbox;
+    this.homeFit = [padding, minSpan];
     this.home = this.computeTarget(bbox, padding, minSpan);
     this.minWidth = Math.max(this.home[2] / 10, 3);
     this.maxWidth = Math.min(Math.max(this.home[2] * 3, 90), 620);

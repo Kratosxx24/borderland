@@ -55,7 +55,9 @@ export function createFlow({ ui, world, map, autocomplete, deps }) {
       const hh = Math.min(latSpan, MAX_SPAN) / 2;
       map.focus([cx - hw, cy - hh, cx + hw, cy + hh], { padding: 0.5, instant });
     } else {
-      map.focus(targetBox, { padding: 0.6, instant });
+      // Small/medium countries get a wide regional frame (~70° of longitude)
+      // so the surrounding region, not just the answers, is in view.
+      map.focus(targetBox, { padding: 0.6, minSpan: 56, instant });
     }
   }
 
