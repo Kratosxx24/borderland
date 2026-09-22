@@ -40,8 +40,23 @@ export function createFlow({ ui, world, map, autocomplete, deps }) {
   }
 
   function frameBoard(instant) {
-    const names = [puzzle.target, ...puzzle.neighbours];
-    map.focus(bboxOf(names), { padding: 0.6, instant });
+    const targetBox = world.get(puzzle.target).bbox;
+    const lonSpan = targetBox[2] - targetBox[0];
+    const latSpan = targetBox[3] - targetBox[1];
+    // For huge countries (Russia, Canada, China…) the target's own bbox is
+    // already enormous and would give the answer away just from the zoom
+    // level. Cap the visible region so the map shows a reasonable chunk of
+    // the country rather than the whole thing.
+    const MAX_SPAN = 40;
+    if (lonSpan > MAX_SPAN || latSpan > MAX_SPAN) {
+      const cx = (targetBox[0] + targetBox[2]) / 2;
+      const cy = (targetBox[1] + targetBox[3]) / 2;
+      const hw = Math.min(lonSpan, MAX_SPAN) / 2;
+      const hh = Math.min(latSpan, MAX_SPAN) / 2;
+      map.focus([cx - hw, cy - hh, cx + hw, cy + hh], { padding: 0.5, instant });
+    } else {
+      map.focus(targetBox, { padding: 0.6, instant });
+    }
   }
 
   function render() {
