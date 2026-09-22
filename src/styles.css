@@ -179,10 +179,12 @@ button {
 
 .brand h1 {
   margin: 0;
-  font-family: var(--serif);
-  font-size: clamp(22px, 3.8vw, 46px);
+  font-family: var(--display);
+  font-size: clamp(20px, 3.2vw, 40px);
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.06em;
+  line-height: 1.05;
+  text-transform: uppercase;
 }
 
 .topbar-actions {
@@ -205,6 +207,10 @@ button {
   background: var(--card);
   border-color: var(--line);
   color: var(--ink);
+}
+
+.ghost .phone-icon {
+  display: none;
 }
 
 .ghost.icon {
@@ -1231,17 +1237,70 @@ button {
     grid-template-columns: 1fr 1fr;
   }
 
-  .brand h1 {
-    font-size: 19px;
+  .app {
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
   }
 
-  .ghost {
-    padding: 6px 9px;
-    font-size: 12px;
+  .brand {
+    gap: 9px;
+    min-width: 0;
+  }
+
+  .brand-mark {
+    width: clamp(28px, 9vw, 34px);
+    height: clamp(28px, 9vw, 34px);
+  }
+
+  .brand h1 {
+    font-size: clamp(15px, 4.6vw, 19px);
+    letter-spacing: 0.04em;
+  }
+
+  .brand-sub {
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+  }
+
+  .topbar {
+    column-gap: 8px;
+    row-gap: 10px;
   }
 
   .topbar-actions {
-    gap: 2px;
+    gap: 0;
+  }
+
+  /* Text buttons collapse to icons so the header fits a phone. */
+  .topbar-actions .ghost {
+    width: clamp(28px, 8.6vw, 34px);
+    height: 34px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  .ghost .phone-icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ghost .btn-text {
+    display: none;
+  }
+
+  .mapstage {
+    height: min(46dvh, 420px);
+  }
+
+  #guess {
+    font-size: 16px;
   }
 }
 
