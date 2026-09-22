@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Borderland — Name the Neighbours</title>
+    <meta name="description" content="You're given a country. Name every nation that shares its border." />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" id="meta-theme-color" content="#dfe6e9" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Borderland — Name the Neighbours" />
+    <meta property="og:description" content="You're given a country. Name every nation that shares its border. A new challenge every day." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Borderland — Name the Neighbours" />
+    <meta name="twitter:description" content="You're given a country. Name every nation that shares its border. A new challenge every day." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./src/styles.css?v=1" />
+    <link rel="icon" type="image/png" href="./public/favicon.png" />
+    <link rel="apple-touch-icon" href="./public/apple-touch-icon.png" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <h1>Borderland</h1>
+        </div>
+
+        <section class="prompt">
+          <p class="eyebrow" id="puzzle-label">Daily Challenge</p>
+          <div class="prompt-route">
+            <span class="endpoint" id="target-country">—</span>
+          </div>
+          <p class="prompt-meta" id="prompt-meta"></p>
+        </section>
+
+        <nav class="topbar-actions">
+          <button type="button" class="ghost" data-act="how">How to Play</button>
+          <button type="button" class="ghost" data-act="shuffle">New Country</button>
+          <button type="button" class="ghost" data-act="archive">Archive</button>
+          <button type="button" class="ghost icon" data-act="stats" aria-label="Statistics">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 20V11M12 20V4M19 20v-6" />
+            </svg>
+          </button>
+          <button type="button" class="ghost icon" data-act="theme" aria-label="Switch theme">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" /></svg>
+          </button>
+        </nav>
+      </header>
+
+      <main class="board">
+        <div class="mapcard">
+          <button type="button" class="mapmode" data-act="blind" aria-pressed="false">
+            <svg class="eye-open" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z" />
+              <circle cx="12" cy="12" r="2.8" />
+            </svg>
+            <svg class="eye-shut" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 8.4C2.8 9.9 2 12 2 12s3.6 6.5 10 6.5c1.7 0 3.2-.5 4.5-1.1M9.9 6.1A11 11 0 0 1 12 5.5c6.4 0 10 6.5 10 6.5s-1 1.8-2.8 3.5" />
+              <path d="M3 3l18 18" />
+            </svg>
+            <span class="mapmode-text">Borders Shown</span>
+          </button>
+          <button type="button" class="mapmode mapreset" data-act="recenter" hidden>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 9V5.5A1.5 1.5 0 0 1 5.5 4H9M15 4h3.5A1.5 1.5 0 0 1 20 5.5V9M20 15v3.5a1.5 1.5 0 0 1-1.5 1.5H15M9 20H5.5A1.5 1.5 0 0 1 4 18.5V15" />
+            </svg>
+            <span>Reset View</span>
+          </button>
+          <div class="mapstage" id="stage"></div>
+          <ul class="legend">
+            <li><i class="swatch is-target"></i>Target Country</li>
+            <li><i class="swatch is-found"></i>Neighbour Found</li>
+            <li><i class="swatch is-wrong"></i>Not a Neighbour</li>
+          </ul>
+        </div>
+
+        <aside class="panel">
+          <form class="guessbox" id="guessform" autocomplete="off">
+            <div class="field">
+              <input
+                id="guess"
+                type="text"
+                placeholder="Name a neighbour…"
+                aria-label="Name a neighbour"
+                spellcheck="false"
+                autocapitalize="off"
+              />
+              <button type="submit" class="submit" aria-label="Submit guess">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7" /></svg>
+              </button>
+            </div>
+            <ul class="suggest" id="suggest" role="listbox" hidden></ul>
+          </form>
+
+          <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+
+          <div class="tally">
+            <div class="pips" id="pips" aria-hidden="true"></div>
+            <span class="tally-text" id="tally">—</span>
+            <button type="button" class="linky concede" data-act="concede" hidden>Give Up</button>
+          </div>
+
+          <ol class="guesses" id="guesses"></ol>
+        </aside>
+      </main>
+    </div>
+
+    <div class="sheet-scrim" id="scrim" hidden>
+      <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+        <button type="button" class="sheet-close" data-act="close" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
+        <div id="sheet-body"></div>
+      </section>
+    </div>
+
+    <script type="module" src="./src/main.js?v=1"></script>
+  </body>
+</html>
