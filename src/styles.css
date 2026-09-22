@@ -30,11 +30,10 @@
   --scrim: rgb(30 45 61 / 0.42);
   --radius: 14px;
 
-  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --serif: 'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --sans: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --display: 'Cinzel', 'Trajan Pro', 'Iowan Old Style', Georgia, serif;
-  --map-label: 'EB Garamond', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --map-label: var(--display);
 }
 
 [data-theme='dark'] {
@@ -85,9 +84,12 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: 15.5px;
   line-height: 1.5;
+  font-optical-sizing: auto;
+  font-variant-numeric: lining-nums;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
@@ -181,8 +183,8 @@ button {
   margin: 0;
   font-family: var(--display);
   font-size: clamp(20px, 3.2vw, 40px);
-  font-weight: 600;
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.07em;
   line-height: 1.05;
   text-transform: uppercase;
 }
@@ -288,7 +290,7 @@ button {
 
 .prompt-meta {
   margin: 0;
-  font-size: 12.5px;
+  font-size: 13.5px;
   color: var(--ink-soft);
 }
 
@@ -767,6 +769,10 @@ button {
 .guess .name {
   flex: 1;
   min-width: 0;
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -836,10 +842,12 @@ button {
 }
 
 .sheet h2 {
-  font-family: var(--serif);
+  font-family: var(--display);
   font-weight: 600;
-  font-size: 26px;
-  margin: 0 0 4px;
+  font-size: 23px;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  margin: 0 0 6px;
 }
 
 .sheet h2.is-win {
@@ -864,7 +872,8 @@ button {
 .sheet p {
   margin: 0 0 10px;
   color: var(--ink-soft);
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 1.55;
 }
 
 .sheet-close {
@@ -1042,9 +1051,10 @@ button {
 
 .stat b {
   display: block;
-  font-family: var(--serif);
-  font-size: 22px;
+  font-family: var(--display);
+  font-size: 24px;
   font-weight: 600;
+  letter-spacing: 0.02em;
   line-height: 1.1;
   color: var(--ink);
 }
